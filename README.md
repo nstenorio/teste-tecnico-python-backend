@@ -1,3 +1,4 @@
+
 # 🚀 Desafio Técnico: API de Foco e Produtividade
 
 O objetivo deste teste é criar o backend de um **"Log de Performance"**. Em vez de apenas registrar tarefas, queremos entender o **estado de fluxo** do desenvolvedor ou estudante durante suas atividades.
