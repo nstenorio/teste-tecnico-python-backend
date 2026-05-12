@@ -1,50 +1,171 @@
-# 🚀 Desafio Técnico: API de Foco e Produtividade
+# 🚀 Focus Performance API
 
-O objetivo deste teste é criar o backend de um **"Log de Performance"**. Em vez de apenas registrar tarefas, queremos entender o **estado de fluxo** do desenvolvedor ou estudante durante suas atividades.
+API desenvolvida para registrar sessões de foco e gerar diagnósticos inteligentes de produtividade com base nos dados registrados.
 
-## 📅 Regras de Entrega
+## 📌 Objetivo
 
-* Prazo: O projeto deve ser entregue até a próxima segunda-feira.
-* Uso de IA: O uso de ferramentas de Inteligência Artificial (ChatGPT, GitHub Copilot, etc.) é permitido.
-* Transparência: Caso utilize IA, você deve commitar os artefatos gerados junto ao repositório. Queremos entender como você utiliza essas ferramentas para acelerar seu fluxo de trabalho.
-* Faça o **fork desse projeto** e me avise quando terminar o [wouerner](https://www.linkedin.com/in/wouerner/) no linkedin. (necessario para pode acompanhar pelo github quem participou)
-
-## 📝 O Contexto
-Muitas vezes trabalhamos muito, mas produzimos pouco. Você deve construir uma API simples que ajude o usuário a registrar seu nível de produtividade e, ao final, entregue um **diagnóstico inteligente** de como foi o seu período de trabalho.
-
-## 🛠 Requisitos Técnicos
-*   **Linguagem:** Python 3.x.
-*   **Framework:** À sua escolha (FastAPI, Flask, Django, etc).
-*   **Armazenamento:** Pode ser em memória (dicionários/listas) ou SQLite para simplicidade.
-*   **Diferencial:** Código limpo, bem comentado e presença de um `README.md` explicando como rodar o projeto.
+O projeto tem como objetivo ajudar desenvolvedores e estudantes a monitorarem seu nível de foco durante sessões de trabalho ou estudo, permitindo análises de produtividade ao longo do tempo.
 
 ---
 
-## 🛣 Os Endpoints
+# 🛠 Tecnologias Utilizadas
 
-### 1. `POST /registro-foco`
-O usuário deve enviar os dados de um bloco de trabalho recém-encerrado.
-
-**Campos obrigatórios:**
-*   `nivel_foco`: Um valor inteiro de **1 a 5** (onde 1 é "muito distraído" e 5 é "estado de flow").
-*   `tempo_minutos`: Um inteiro representando quanto tempo durou a sessão.
-*   `comentario`: Uma string descrevendo o que foi feito ou o que causou distração.
-
-> **💡 Dica de Criatividade:** Sinta-se à vontade para adicionar campos extras, como `categoria` (coding, reunião, estudo), `data` ou `tags`.
-
-### 2. `GET /diagnostico-produtividade`
-Este endpoint deve retornar um resumo inteligente baseado em todos os registros salvos.
-
-**O que deve retornar (JSON):**
-*   **Média do nível de foco:** A média aritmética de todos os registros.
-*   **Tempo total focado:** A soma de todos os minutos registrados.
-*   **Lógica Criativa (Diferencial):** Uma "mensagem de feedback" automática baseada nos dados analisados.
-    *   *Exemplo:* Se a média de foco for `< 3`, sugerir "Pausas mais longas e menos notificações". Se for `> 4`, "Você está em uma maratona produtiva de alto nível!".
+- Python 3
+- FastAPI
+- SQLAlchemy
+- SQLite
+- Pydantic
+- Uvicorn
 
 ---
 
-## 📊 O que será avaliado
-1.  **Organização do Código:** Estrutura de pastas e legibilidade.
-2.  **Manipulação de Dados:** Como você lida com tipos, cálculos e persistência.
-3.  **Tratamento de Erros:** Respostas adequadas para entradas inválidas (ex: nível de foco fora do range 1-5).
-4.  **Criatividade:** Pequenos detalhes que tornam a API mais útil para o usuário final.
+# 📂 Estrutura do Projeto
+
+```bash
+app/
+├── models/
+├── routes/
+├── schemas/
+├── services/
+├── utils/
+├── database.py
+└── main.py
+```
+
+---
+
+# ⚙️ Como Executar o Projeto
+
+## 1. Clone o repositório
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+```
+
+---
+
+## 2. Acesse a pasta do projeto
+
+```bash
+cd teste-tecnico-python-backend
+```
+
+---
+
+## 3. Crie o ambiente virtual
+
+```bash
+python -m venv venv
+```
+
+---
+
+## 4. Ative o ambiente virtual
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+---
+
+## 5. Instale as dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 6. Execute o projeto
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+# 📘 Documentação Swagger
+
+Após iniciar a aplicação:
+
+```bash
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 📌 Endpoints
+
+## ✅ POST /focus-sessions
+
+Cria uma nova sessão de foco.
+
+### Exemplo Request
+
+```json
+{
+  "focus_level": 5,
+  "duration_minutes": 120,
+  "comment": "Implemented JWT authentication",
+  "category": "backend"
+}
+```
+
+---
+
+## ✅ GET /productivity-diagnosis
+
+Gera um diagnóstico inteligente baseado nas sessões registradas.
+
+### Exemplo Response
+
+```json
+{
+  "average_focus_level": 4.67,
+  "total_focus_time": 360,
+  "total_sessions": 3,
+  "most_productive_category": "backend",
+  "feedback": "Você está em um fluxo de alta produtividade!"
+}
+```
+
+---
+
+# 🧠 Regras de Negócio
+
+A API realiza:
+
+- cálculo da média de foco
+- soma do tempo total produtivo
+- identificação da categoria mais produtiva
+- geração automática de feedback inteligente
+
+---
+
+# ✅ Validações Implementadas
+
+- nível de foco entre 1 e 5
+- duração maior que zero
+- comentário obrigatório
+- tipagem forte com Pydantic
+
+---
+
+# 🤖 Uso de Inteligência Artificial
+
+Foram utilizadas ferramentas de IA como ChatGPT para:
+
+- apoio na arquitetura da aplicação
+- refinamento de regras de negócio
+- revisão de boas práticas
+- suporte educacional durante o desenvolvimento
+
+Toda implementação foi revisada, adaptada e validada manualmente.
+
+---
+
+# 👨‍💻 Autor
+
+Fernando Tenório
